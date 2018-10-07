@@ -96,24 +96,23 @@ std::pair<long, long> PixelDrawing::getPixelPosition()
 
 void PixelDrawing::drawPixel(std::vector<long>* vPrimeNumbers, long* maxValue)
 {
+	int sizeOfDrawing = sqrt(*maxValue);
+	int middleOfDrawing = sizeOfDrawing / 2;
 	//translation in order to draw negative pixels
-	long lPosXTrans = m_lPosX + sqrt(*maxValue) / 2;
-	long lPosYTrans = m_lPosY + sqrt(*maxValue) / 2;
+	long lPosXTrans = m_lPosX + middleOfDrawing;
+	long lPosYTrans = m_lPosY + middleOfDrawing;
 
 	if (vPrimeNumbers->size() > 0 && this->getPixelValue() == vPrimeNumbers->at(0))
 	{
 		vPrimeNumbers->erase(vPrimeNumbers->begin()); //erase the vector
-				
 		m_mapRecordDrawing[std::make_pair(lPosXTrans, lPosYTrans)] = std::make_pair(this->getPixelValue(), true);
-
-		//SetPixel(*deviceContent, lPosXTrans, lPosYTrans, COLOR);
-		//SetPixel(*deviceContent, m_lPosX, m_lPosY, COLOR);
 		//std::cout << "Value: " << this->getPixelValue() << " is painted in white !" << std::endl;
+
+		//create a vector of "prime" pixels
+		m_vCoordinates.push_back(std::make_pair(lPosXTrans,lPosYTrans));
 	}
 	else
 	{
 		m_mapRecordDrawing[std::make_pair(lPosXTrans, lPosYTrans)] = std::make_pair(this->getPixelValue(), false);
-		//COLORREF ROLOC = RGB(125, 0, 255);
-		//SetPixel(*deviceContent, m_lPosX, m_lPosY, ROLOC);
 	}
 }

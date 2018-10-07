@@ -11,11 +11,12 @@
 #define _WIN32_WINNT 0x0500
 
 //TODO : create log
+//using source code from https://archive.codeplex.com/?p=bitmap
 
 #ifdef _WIN32
-	#define _ERR false
+	#define _ERR true
 #else
-	#define _ERR true	
+	#define _ERR false	
 	//TODO : create a linux version using OpenGL
 #endif
 
@@ -58,6 +59,23 @@ int main(int argc, char* argv[])
 		//TODO : save the drawing inside a file
 		oUlam.setScreenPath(lValue, oPixelDrawing, &lValue);
 
+		//using bitmap_image library
+		long sizeImage = sqrt(lValue);
+		bitmap_image spiraleUlam(sizeImage,sizeImage);
+
+		spiraleUlam.clear(); //TOGET
+		vecCoor vCoordinates = oPixelDrawing->getCoordinates();
+
+		for (vecCoor::iterator it = vCoordinates.begin(); it != vCoordinates.end(); ++it)
+		{
+			std::pair<long,long> tempPair = *it;
+			long lX = tempPair.first;
+			long lY = tempPair.second;
+			spiraleUlam.set_pixel(lX, lY, jet_colormap[137]);
+		}
+
+		spiraleUlam.save_image("spiraleUlam.bmp");
+	
 
 		delete oPixelDrawing;
 

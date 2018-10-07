@@ -1,24 +1,25 @@
-####################
-#     MAKEFILE     #
-####################
+#MAKEFILE
 
 SHELL = /bin/sh
-srcdir = .
+dir = .
 
 #TODO: create and use variables
 
-INC_PATH= %.h ./include
-SRC_PATH=%.cpp ./source
+INC_PATH= %.h $(dir)/include
+SRC_PATH=%.cpp $(dir)/source
 CXXFLAGS = -Wall -g
 
 main: main.o PixelDrawing.o Ulam.o
-	gcc $(CXXFLAGS) -o main main.o PixelDrawing.o Ulam.o
+	g++ $(CXXFLAGS) -o main main.o PixelDrawing.o Ulam.o
 
 main.o : main.cpp
-	gcc -c main.cpp
+	g++ -c main.cpp
 PixelDrawing.o : PixelDrawing.cpp
-	gcc -c PixelDrawing.cpp
+	g++ -c PixelDrawing.cpp
 Ulam.o : Ulam.cpp
-	gcc -c Ulam.cpp
+	g++ -c Ulam.cpp
+bitmap_test.o : bitmap_image.h
+	g++ -c bitmap_image.h
+
 clean :
 	rm -f main.o PixelDrawing.o Ulam.o
